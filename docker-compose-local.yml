@@ -7,6 +7,11 @@
 version: '3.1'
 services:
 
+  redis:
+    image: redis:latest
+    container_name: cache
+    networks:
+      - web
   node:
     env_file:
       - .env
@@ -14,18 +19,15 @@ services:
     image: express/express-seed-nodejs-12.x:12.13.1-alpine3.10
     working_dir: /app
     command: npm run start:full
-    #restart: always
+    restart: always
     networks:
       - web
+    links:
+      - redis
     volumes:
       - ./:/app
     ports:
       - "3120:4000"
-      - "9120:9229"
-    labels:
-      - "traefik.port=4000"
-      - "traefik.backend=express-seed"
-      - "traefik.frontend.rule=PathPrefixStrip:/seed"
 
 networks:
   web:
