@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import economyControllers from '../../controllers/economyControllers/helloWorld';
+import economyControllers from '../../controllers/economyControllers/last';
 
 const router = Router();
-router.get('/', economyControllers.getHelloWorld);
+router.get('/', economyControllers.getLast);
 
 export default router;
