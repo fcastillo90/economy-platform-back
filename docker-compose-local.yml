@@ -1,0 +1,33 @@
+##
+## Description: this container is used to run an express based app
+##
+## Author: Jorge Cabane <jcabane@ripley.com>
+##
+
+version: '3.1'
+services:
+
+  node:
+    env_file:
+      - .env
+    build: ./
+    image: express/express-seed-nodejs-12.x:12.13.1-alpine3.10
+    working_dir: /app
+    command: npm run start:full
+    #restart: always
+    networks:
+      - web
+    volumes:
+      - ./:/app
+    ports:
+      - "3120:4000"
+      - "9120:9229"
+    labels:
+      - "traefik.port=4000"
+      - "traefik.backend=express-seed"
+      - "traefik.frontend.rule=PathPrefixStrip:/seed"
+
+networks:
+  web:
+    external:
+      name: react-seed_webgateway

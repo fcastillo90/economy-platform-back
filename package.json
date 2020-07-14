@@ -1,0 +1,51 @@
+{
+  "name": "economy-platform-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node -r esm ./bin/www",
+    "start:dev": "nodemon --inspect=0.0.0.0:9229 -r esm --inspect ./bin/www",
+    "start:full": "concurrently -k -s first \"npm run jest:watch\" \"npm run lint:watch\" \"npm run prettier:watch\" \"npm run start:dev\"",
+    "lint": "node ./node_modules/.bin/eslint . --max-warnings=0 && echo '✔  Your code looks good.'",
+    "lint:watch": "node ./node_modules/.bin/esw . --color --max-warnings=0 --watch",
+    "jest": "CI=true jest --ci --color --detectOpenHandles --forceExit --coverage",
+    "jest:watch": "CI=true jest --ci --color --detectOpenHandles --forceExit --watchAll",
+    "jest:integration": "CI=true npx jest --ci --color --detectOpenHandles --forceExit --roots=__tests__/integration",
+    "prettier": "npx prettier --write './**/*.js'",
+    "prettier:watch": "onchange './**/*.js' -- prettier --write {{changed}}",
+    "test": "npm run jest",
+    "upgrade-interactive": "npm-check --update"
+  },
+  "author": "Francisco Castillo",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "mongoose": "^5.9.10",
+    "npm-check": "^5.9.2",
+    "swagger-ui-express": "^4.0.7",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "dotenv": "^5.0.1",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.7.0",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-watch": "^6.0.0",
+    "esm": "^3.2.25",
+    "jest": "^24.9.0",
+    "jest-esm-transformer": "^1.0.0",
+    "nodemon": "^1.18.10",
+    "onchange": "^6.0.0",
+    "prettier": "1.18.2"
+  }
+}
