@@ -8,15 +8,7 @@ import responseFormatter from './utils/responseFormatter';
 
 // Set log level (application-wide)
 const app = express();
-app.use(
-  cors({
-    'allowedHeaders': ['Content-Type'],
-    'exposedHeaders': ['Content-Type'],
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-  })
-);
+app.use(cors());
 // app.use('/api-docs', serve, setup(swaggerDocument));
 // Protect application from some well-known vulnerabilities
 app.use(helmet());
