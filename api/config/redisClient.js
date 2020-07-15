@@ -15,7 +15,6 @@ const getAsync = ({ key, ifNotInRedis }) =>
     if (response) return { status: responseCodes.OK, body: JSON.parse(response) };
 
     const { status, body } = await ifNotInRedis();
-
     await setAsync({ key, body: JSON.stringify(body) });
 
     return { status, body };

@@ -1,4 +1,5 @@
 import { get } from 'axios';
+import responseCodes from '../config/responseCodes';
 
 const getFromApi = async ({ url = null }) => {
   if (url == null || url === '') {
@@ -9,8 +10,21 @@ const getFromApi = async ({ url = null }) => {
     .then(response => response)
     .catch(error => error);
 };
-const request = {
-  getFromApi
+
+const handleQuery = async ({ path }) => {
+  let status = responseCodes.BAD_REQUEST.code;
+  let body = {};
+
+  const response = await getFromApi({ url: `${process.env.API_URL}${path}` });
+  if (response.status === 200) {
+    body = response.data;
+    status = responseCodes.OK;
+  }
+  return { body, status };
 };
 
+const request = {
+  getFromApi,
+  handleQuery
+};
 export default request;

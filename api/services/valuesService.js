@@ -2,10 +2,11 @@ import responseFormatter from '../utils/responseFormatter';
 import responseCodes from '../config/responseCodes';
 import constants from '../config';
 import request from '../utils/request';
+import validation from '../utils/validation';
 import redisClient from '../config/redisClient';
 
 // eslint-disable-next-line no-unused-vars
-const getLastService = async ({ query, consumer }) => {
+const getValuesService = async ({ query, consumer, params }) => {
   try {
     let status = responseCodes.BAD_REQUEST.code;
     let body = {
@@ -13,16 +14,18 @@ const getLastService = async ({ query, consumer }) => {
       message: responseCodes.BAD_REQUEST.message,
       data: {}
     };
-    const key = constants.PATH_LAST;
-    const response = await redisClient.getAsync({
-      key,
-      ifNotInRedis: () => request.handleQuery({ path: key })
-    });
 
-    const format = await responseFormatter.formatter(response.status, response.body);
-    ({ status } = format);
-    body = format;
+    if (params.key && validation.checkIfValueInArray(params.key, constants.ACCEPTED_KEYS)) {
+      const key = constants.PATH_VALUES({ key: params.key });
+      const response = await redisClient.getAsync({
+        key,
+        ifNotInRedis: () => request.handleQuery({ path: key })
+      });
 
+      const format = await responseFormatter.formatter(response.status, response.body);
+      ({ status } = format);
+      body = format;
+    }
     return { status, body };
   } catch (error) {
     const body = await responseFormatter.formatter(responseCodes.BAD_REQUEST, []);
@@ -31,4 +34,4 @@ const getLastService = async ({ query, consumer }) => {
   }
 };
 
-export default { getLastService };
+export default { getValuesService };

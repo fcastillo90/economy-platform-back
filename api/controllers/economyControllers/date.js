@@ -1,12 +1,12 @@
 import responseCodes from '../../config/responseCodes';
 import responseFormatter from '../../utils/responseFormatter';
-import seedService from '../../services/seedService';
+import dateService from '../../services/dateService';
 
-const getHelloWorld = async (req, res) => {
+const getDate = async (req, res) => {
   try {
-    const { headers, query } = req;
+    const { headers, query, params } = req;
 
-    const { status, body } = await seedService.seedService({ query, headers });
+    const { status, body } = await dateService.getDateService({ query, headers, params });
     return res.status(status).json(body);
   } catch (err) {
     const response = await responseFormatter.formatter(responseCodes.BAD_REQUEST, []);
@@ -15,5 +15,5 @@ const getHelloWorld = async (req, res) => {
 };
 
 export default {
-  getHelloWorld
+  getDate
 };
