@@ -1,42 +1,30 @@
-import { get, post, put } from 'axios';
+import { get } from 'axios';
+import responseCodes from '../config/responseCodes';
 
-const getFromApi = async ({ url = null, token = '' }) => {
+const getFromApi = async ({ url = null }) => {
   if (url == null || url === '') {
     throw new Error("url can't be null or empty");
   }
-  const headers = {
-    Authorization: `Bearer ${token}`
-  };
+  const headers = {};
   return get(url, { headers })
     .then(response => response)
     .catch(error => error);
 };
-const postToApi = async ({ body = {}, url = null, token = '' }) => {
-  if (url == null || url === '') throw new Error("url can't be null or empty");
 
-  const headers = {
-    Authorization: `Bearer ${token}`
-  };
+const handleQuery = async ({ path }) => {
+  let status = responseCodes.BAD_REQUEST.code;
+  let body = {};
 
-  return post(url, body, { headers })
-    .then(response => response)
-    .catch(error => error);
-};
-const putToApi = ({ body = {}, url = null }) => {
-  if (url == null || url === '') {
-    throw new Error("url can't be null or empty");
+  const response = await getFromApi({ url: `${process.env.API_URL}${path}` });
+  if (response.status === 200) {
+    body = response.data;
+    status = responseCodes.OK;
   }
-  const headers = {
-    'Content-Type': 'application/json; charset=utf-8'
-  };
-  return put(url, body, { headers })
-    .then(response => response)
-    .catch(error => error);
+  return { body, status };
 };
+
 const request = {
   getFromApi,
-  postToApi,
-  putToApi
+  handleQuery
 };
-
 export default request;
