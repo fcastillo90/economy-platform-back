@@ -1,8 +1,8 @@
-# Express seed - Francisco Castillo
+# Economy Backend - Francisco Castillo
 
 ## Project architecture made by Francisco Castillo
 
-### Express, Mongoose, Swagger, ESLint, utils and more
+### Express, Swagger, ESLint, axios, utils and more
 
 ## Available Scripts
 

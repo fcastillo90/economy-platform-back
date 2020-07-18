@@ -5,8 +5,7 @@ import request from '../utils/request';
 import validation from '../utils/validation';
 import redisClient from '../config/redisClient';
 
-// eslint-disable-next-line no-unused-vars
-const getDateService = async ({ query, consumer, params }) => {
+const getDateService = async ({ params }) => {
   try {
     let status = responseCodes.BAD_REQUEST.code;
     let body = {

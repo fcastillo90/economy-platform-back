@@ -13,6 +13,7 @@ services:
     networks:
       - web
   node:
+    container_name: backService
     env_file:
       - .env
     build: ./
@@ -27,7 +28,7 @@ services:
     volumes:
       - ./:/app
     ports:
-      - "3120:4000"
+      - 3120:4000
 
 networks:
   web:
