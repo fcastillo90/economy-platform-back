@@ -2,9 +2,9 @@ module.exports = {
   verbose: true,
   testEnvironment: 'node',
   roots: ['__tests__/'],
-  // 'transform': {
-  //   '^.+\\.js$': 'babel-jest'
-  // },
+  transform: {
+    '\\.m?jsx?$': 'jest-esm-transformer'
+  },
   globals: {
     NODE_ENV: 'test'
   },
@@ -15,5 +15,6 @@ module.exports = {
   coverageDirectory: 'coverage/',
   transformIgnorePatterns: ['/app/.cache/', '/app/node_modules'],
   testMatch: ['**/__tests__/**/?(*.)+(spec|test).js?(x)'],
-  testPathIgnorePatterns: ['<rootDir>/.cache/', '/node_modules/']
+  testPathIgnorePatterns: ['<rootDir>/.cache/', '/node_modules/'],
+  setupFilesAfterEnv: ['./jest.setup.js']
 };

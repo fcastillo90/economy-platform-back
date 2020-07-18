@@ -5,7 +5,6 @@ import valuesService from '../../services/valuesService';
 const getValues = async (req, res) => {
   try {
     const { headers, query, params } = req;
-
     const { status, body } = await valuesService.getValuesService({ query, headers, params });
     return res.status(status).json(body);
   } catch (err) {

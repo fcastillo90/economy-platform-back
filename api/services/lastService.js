@@ -4,8 +4,7 @@ import constants from '../config';
 import request from '../utils/request';
 import redisClient from '../config/redisClient';
 
-// eslint-disable-next-line no-unused-vars
-const getLastService = async ({ query, consumer }) => {
+const getLastService = async () => {
   try {
     let status = responseCodes.BAD_REQUEST.code;
     let body = {

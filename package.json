@@ -27,6 +27,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
+    "moment": "^2.27.0",
     "mongoose": "^5.9.10",
     "npm-check": "^5.9.2",
     "redis": "^3.0.2",
@@ -34,6 +35,8 @@
     "utf8": "^3.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^5.0.0",
     "dotenv": "^5.0.1",
     "eslint": "^6.6.0",
@@ -48,6 +51,8 @@
     "jest-esm-transformer": "^1.0.0",
     "nodemon": "^1.18.10",
     "onchange": "^6.0.0",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "superagent": "^5.3.1",
+    "supertest": "^4.0.2"
   }
 }
